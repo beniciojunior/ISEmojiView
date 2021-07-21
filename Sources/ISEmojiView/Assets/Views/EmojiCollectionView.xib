@@ -14,7 +14,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="yql-CI-KMz">
-                    <rect key="frame" x="0.0" y="50" width="375" height="186"/>
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="236"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="ojr-e4-0rS">
                         <size key="itemSize" width="45" height="35"/>
@@ -32,7 +32,7 @@
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="yql-CI-KMz" secondAttribute="trailing" id="Egl-8D-QzR"/>
                 <constraint firstItem="yql-CI-KMz" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="JcB-yS-k6l"/>
-                <constraint firstItem="yql-CI-KMz" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="50" id="cqD-nm-7oN"/>
+                <constraint firstItem="yql-CI-KMz" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="cqD-nm-7oN"/>
                 <constraint firstAttribute="bottom" secondItem="yql-CI-KMz" secondAttribute="bottom" id="zFN-EU-Ke2"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
