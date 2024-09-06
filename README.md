@@ -1,5 +1,10 @@
-![logo](https://raw.github.com/isaced/ISEmojiView/master/logo@2x.jpg)
-[![Version](https://img.shields.io/cocoapods/v/ISEmojiView.svg?style=flat)](http://cocoapods.org/pods/ISEmojiView) [![Carthage Compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage) [![License](https://img.shields.io/cocoapods/l/ISEmojiView.svg?style=flat)](http://cocoapods.org/pods/ISEmojiView) [![Platform](https://img.shields.io/cocoapods/p/ISEmojiView.svg?style=flat)](http://cocoapods.org/pods/ISEmojiView)  ![Swift](https://img.shields.io/badge/%20in-swift%205-orange.svg)
+![ISEmojiView logo](/logo@2x.jpg)
+[![Version](https://img.shields.io/cocoapods/v/ISEmojiView.svg?style=flat)](http://cocoapods.org/pods/ISEmojiView)
+[![License](https://img.shields.io/cocoapods/l/ISEmojiView.svg?style=flat)](http://cocoapods.org/pods/ISEmojiView)
+[![Platform](https://img.shields.io/cocoapods/p/ISEmojiView.svg?style=flat)](http://cocoapods.org/pods/ISEmojiView)
+[![Carthage Compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
+[![SPM supported](https://img.shields.io/badge/SPM-supported-DE5C43.svg?style=flat")](https://swift.org/package-manager/)
+
 
 English | [中文](/README_zh.md)
 
@@ -7,16 +12,17 @@ An easy to use Emoji keyboard for iOS.
 
 Has been rewritten with swift, the old *Objective-C* version on branch [oc](https://github.com/isaced/ISEmojiView/tree/oc).
 
-<img src="https://github.com/isaced/ISEmojiView/blob/master/screenshot1.png" width="375" height="667"> <img src="https://github.com/isaced/ISEmojiView/blob/master/screenshot2.png" width="375" height="667">
+<img src="/screenshot1.png" width="375" height="667"> <img src="/screenshot2.png" width="375" height="667">
 
 ## Features
 
-- Written in Swift
-- Custom emojis
-- Multiple skin tone support (  🏻 🏼 🏽 🏾 🏿 )
-- Categories bottom bar (like iOS system emoji Keyboard)
-- Recently used emoji
-- Dark Mode ([#58](https://github.com/isaced/ISEmojiView/issues/58))
+- [x] Written in Swift
+- [x] Custom emojis
+- [x] Multiple skin tone support (  🏻 🏼 🏽 🏾 🏿 )
+- [x] Categories bottom bar (like iOS system emoji Keyboard)
+- [x] Recently used emoji
+- [x] Dark Mode ([#58](https://github.com/isaced/ISEmojiView/issues/58))
+- [x] SwiftUI support.
 
 ## Example
 
@@ -31,6 +37,20 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 ## Useage
 
 ### Installation
+
+#### Swift Package Manager
+
+via [Swift Package Manager](https://swift.org/package-manager/) Install to your project，Add in Package.swift：
+
+```swift
+.package(name: "ISEmojiView", url: "https://github.com/isaced/ISEmojiView.git", .upToNextMinor(from: "0.3.0")),
+```
+
+In Xcode：
+
+- File > Swift Packages > Add Package Dependency
+- Add https://github.com/isaced/ISEmojiView.git
+- Select "Up to Next Major" with "0.3.0"
 
 #### Cocoapods
 
@@ -104,6 +124,18 @@ This is a class to desribe keyboard settings. Available properties:
 - `countOfRecentsEmojis` - the max number of recent emojis, if set 0, nothing will be shown. Default is 50.
 - `needToShowAbcButton` - need to show change keyboard button. This button is located in `Categories` bottom view.
 
+### SwiftUI
+Doesn't work on macOS SwiftUI natively.
+
+```Swift
+import ISEmojiView
+
+EmojiView_SwiftUI()
+    .frame(width: 300, height: 500)
+    .padding()
+```
+
+`countOfRecentsEmojis`, `needToShowAbcButton`, `needToShowDeleteButton`, `updateRecentEmojiImmediately` can be passed to EmojiView_SwiftUI as parameters.
 
 ## Others
 

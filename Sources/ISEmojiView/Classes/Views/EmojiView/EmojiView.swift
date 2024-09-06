@@ -52,8 +52,6 @@ final public class EmojiView: UIView {
     
     @IBInspectable private var countOfRecentsEmojis: Int = MaxCountOfRecentsEmojis {
         didSet {
-            RecentEmojisManager.sharedInstance.maxCountOfCenetEmojis = countOfRecentsEmojis
-            
             if countOfRecentsEmojis > 0 {
                 if !emojis.contains(where: { $0.category == .recents }) {
                     emojis.insert(EmojiLoader.recentEmojiCategory(), at: 0)
@@ -111,12 +109,11 @@ final public class EmojiView: UIView {
         
         bottomType = keyboardSettings.bottomType
         emojis = keyboardSettings.customEmojis ?? EmojiLoader.emojiCategories()
+        countOfRecentsEmojis = keyboardSettings.countOfRecentsEmojis
         
         if keyboardSettings.countOfRecentsEmojis > 0 {
             emojis.insert(EmojiLoader.recentEmojiCategory(), at: 0)
         }
-        
-        RecentEmojisManager.sharedInstance.maxCountOfCenetEmojis = keyboardSettings.countOfRecentsEmojis
         
         setupView()
         setupSubviews()
@@ -163,7 +160,7 @@ final public class EmojiView: UIView {
 extension EmojiView: EmojiCollectionViewDelegate {
     
     func emojiViewDidSelectEmoji(emojiView: EmojiCollectionView, emoji: Emoji, selectedEmoji: String) {
-        if RecentEmojisManager.sharedInstance.add(emoji: emoji, selectedEmoji: selectedEmoji),(keyboardSettings?.updateRecentEmojiImmediately) ?? true  {
+        if RecentEmojisManager.sharedInstance.add(emoji: emoji, selectedEmoji: selectedEmoji, maxCount: countOfRecentsEmojis),(keyboardSettings?.updateRecentEmojiImmediately) ?? true  {
             emojiCollectionView?.updateRecentsEmojis(RecentEmojisManager.sharedInstance.recentEmojis())
         }
         
@@ -259,16 +256,22 @@ extension EmojiView {
         var _bottomView: UIView?
         
         if bottomType == .pageControl {
-            let bottomView = PageControlBottomView.loadFromNib(categoriesCount: categories.count)
+          let needToShowDeleteButton = keyboardSettings?.needToShowDeleteButton ?? true
+          let bottomView = PageControlBottomView.loadFromNib(
+              categoriesCount: categories.count,
+              needToShowDeleteButton: needToShowDeleteButton
+            )
             bottomView.delegate = self
             self.pageControlBottomView = bottomView
             
             _bottomView = bottomView
         } else if bottomType == .categories {
             let needToShowAbcButton = keyboardSettings?.needToShowAbcButton ?? self.needToShowAbcButton
+            let needToShowDeleteButton = keyboardSettings?.needToShowDeleteButton ?? true
             let bottomView = CategoriesBottomView.loadFromNib(
                 with: categories,
-                needToShowAbcButton: needToShowAbcButton
+                needToShowAbcButton: needToShowAbcButton,
+                needToShowDeleteButton: needToShowDeleteButton
             )
             bottomView.delegate = self
             self.categoriesBottomView = bottomView

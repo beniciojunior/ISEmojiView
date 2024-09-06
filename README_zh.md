@@ -1,11 +1,11 @@
-![logo](https://raw.github.com/isaced/ISEmojiView/master/logo@2x.jpg)
+![logo](/logo@2x.jpg)
 [![Version](https://img.shields.io/cocoapods/v/ISEmojiView.svg?style=flat)](http://cocoapods.org/pods/ISEmojiView) [![Carthage Compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage) [![License](https://img.shields.io/cocoapods/l/ISEmojiView.svg?style=flat)](http://cocoapods.org/pods/ISEmojiView) [![Platform](https://img.shields.io/cocoapods/p/ISEmojiView.svg?style=flat)](http://cocoapods.org/pods/ISEmojiView)  ![Swift](https://img.shields.io/badge/%20in-swift%205-orange.svg)
 
 一个简单易用的 iOS Emoji 键盘
 
 已经使用 Swift 重写，旧 *Objective-C* 版本在 [oc](https://github.com/isaced/ISEmojiView/tree/oc) 分支
 
-<img src="https://github.com/isaced/ISEmojiView/blob/master/screenshot1.png" width="375" height="667"> <img src="https://github.com/isaced/ISEmojiView/blob/master/screenshot2.png" width="375" height="667">
+<img src="/screenshot1.png" width="375" height="667"> <img src="/screenshot2.png" width="375" height="667">
 
 ## 特性
 
@@ -28,6 +28,21 @@ clone 项目，在项目根目录执行 `pod install` 命令来运行
 ## 使用
 
 ### 安装
+
+#### Swift Package Manager
+
+通过 [Swift Package Manager](https://swift.org/package-manager/) 安装 ISEmojiView 到你的项目，在 Package.swift 中添加：
+
+```swift
+.package(name: "ISEmojiView", url: "https://github.com/isaced/ISEmojiView.git", .upToNextMinor(from: "0.3.0")),
+```
+
+在 Xcode 中：
+
+- 菜单 File > Swift Packages > Add Package Dependency
+- 搜索 https://github.com/isaced/ISEmojiView.git
+- 选择 "Up to Next Major" 版本 "0.3.0"
+
 
 #### CocoaPods
 

@@ -10,18 +10,18 @@ import Foundation
 private let recentEmojisKey = "ISEmojiView.recent"
 private let recentEmojisFreqStorageKey = "ISEmojiView.recent-freq"
 
-final internal class RecentEmojisManager {
+final public class RecentEmojisManager {
     
     // MARK: - Public variables
     
-    static let sharedInstance = RecentEmojisManager()
-    
-    internal var maxCountOfCenetEmojis: Int = 0
+    public static let sharedInstance = RecentEmojisManager()
     
     // MARK: - Public functions
     
-    internal func add(emoji: Emoji, selectedEmoji: String) -> Bool {
-        guard maxCountOfCenetEmojis > 0 else {
+    public func add(emoji: Emoji, selectedEmoji: String, maxCount: Int) -> Bool {
+        if (maxCount == 0) {
+            UserDefaults.standard.removeObject(forKey: recentEmojisKey)
+            UserDefaults.standard.removeObject(forKey: recentEmojisFreqStorageKey)
             return false
         }
         
@@ -42,13 +42,13 @@ final internal class RecentEmojisManager {
                 return true
         }
 
-        if emojis.count > maxCountOfCenetEmojis {
-            emojis.removeLast(emojis.count-maxCountOfCenetEmojis)
+        if emojis.count > maxCount {
+            emojis.removeLast(emojis.count-maxCount)
         }
         
-        if emojis.count > 0 && emojis.count == maxCountOfCenetEmojis {
+        if emojis.count > 0 && emojis.count == maxCount {
             let toRemove = emojis.removeLast()
-            let newIndex = maxCountOfCenetEmojis/3
+            let newIndex = maxCount/3
             let oldOne = emojis[newIndex].selectedEmoji ?? ""
             emojis.insert(emoji, at: newIndex)
             freqData[selectedEmoji] = (freqData[oldOne] ?? 0) + 1
@@ -71,7 +71,7 @@ final internal class RecentEmojisManager {
         return data
     }
     
-    internal func recentEmojis() -> [Emoji] {
+    public func recentEmojis() -> [Emoji] {
         guard let data = UserDefaults.standard.data(forKey: recentEmojisKey) else {
             return []
         }

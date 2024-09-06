@@ -1,6 +1,6 @@
 //
 //  SwiftUIView.swift
-//  
+//
 //
 //  Created by Michał Śmiałko on 16/06/2021.
 //
@@ -8,6 +8,7 @@
 import SwiftUI
 import UIKit
 
+@available(iOS 13.0, *)
 public struct EmojiView_SwiftUI: UIViewRepresentable {
     public typealias UIViewType = EmojiView
     
@@ -15,17 +16,42 @@ public struct EmojiView_SwiftUI: UIViewRepresentable {
     var didPressChangeKeyboard: (() -> Void)?
     var didPressDeleteBackward: (() -> Void)?
     var dDidPressDismissKeyboard: (() -> Void)?
+    var needToShowAbcButton: (Bool)?
+    var needToShowDeleteButton: (Bool)?
+    var updateRecentEmojiImmediately: (Bool)?
+    var countOfRecentsEmojis: (Int)?
     
-    public init(didSelect: ((String) -> Void)? = nil, didPressChangeKeyboard: (() -> Void)? = nil, didPressDeleteBackward: (() -> Void)? = nil, dDidPressDismissKeyboard: (() -> Void)? = nil) {
-        self.didSelect = didSelect
-        self.didPressChangeKeyboard = didPressChangeKeyboard
-        self.didPressDeleteBackward = didPressDeleteBackward
-        self.dDidPressDismissKeyboard = dDidPressDismissKeyboard
-    }
-
+    public init(
+        needToShowAbcButton: (Bool)? = false,
+        needToShowDeleteButton: (Bool)? = true,
+        updateRecentEmojiImmediately: (Bool)? = true,
+        countOfRecentsEmojis: (Int)? = MaxCountOfRecentsEmojis,
+        didSelect: ((String) -> Void)? = nil,
+        didPressChangeKeyboard: (() -> Void)? = nil,
+        didPressDeleteBackward: (() -> Void)? = nil,
+        dDidPressDismissKeyboard: (() -> Void)? = nil) {
+            self.needToShowAbcButton = needToShowAbcButton
+            self.needToShowDeleteButton = needToShowDeleteButton
+            self.countOfRecentsEmojis = countOfRecentsEmojis
+            self.updateRecentEmojiImmediately = updateRecentEmojiImmediately
+            self.didSelect = didSelect
+            self.didPressChangeKeyboard = didPressChangeKeyboard
+            self.didPressDeleteBackward = didPressDeleteBackward
+            self.dDidPressDismissKeyboard = dDidPressDismissKeyboard
+        }
+    
     public func makeUIView(context: Context) -> EmojiView {
         let keyboardSettings = KeyboardSettings(bottomType: .categories)
+        keyboardSettings.needToShowAbcButton = needToShowAbcButton!
+        keyboardSettings.needToShowDeleteButton = needToShowAbcButton!
+        keyboardSettings.countOfRecentsEmojis = countOfRecentsEmojis!
+        keyboardSettings.updateRecentEmojiImmediately = updateRecentEmojiImmediately!
         let emojiView = EmojiView(keyboardSettings: keyboardSettings)
+        if (needToShowDeleteButton!){
+            let bottomView = emojiView.subviews.last?.subviews.last
+            let collecitonViewToSuperViewTrailingConstraint = bottomView?.value(forKey: "collecitonViewToSuperViewTrailingConstraint") as? NSLayoutConstraint
+            collecitonViewToSuperViewTrailingConstraint?.priority = .defaultLow
+        }
         emojiView.translatesAutoresizingMaskIntoConstraints = false
         emojiView.delegate = context.coordinator
         
@@ -73,6 +99,7 @@ public struct EmojiView_SwiftUI: UIViewRepresentable {
     }
 }
 
+@available(iOS 13.0, *)
 struct EmojiView_SwiftUI_Previews: PreviewProvider {
     static var previews: some View {
         EmojiView_SwiftUI()
